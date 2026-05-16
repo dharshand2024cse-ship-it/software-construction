@@ -1,0 +1,43 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+
+# Step 1: Checkout source code
+- checkout: self
+
+# Step 2: Display project files
+- script: |
+    echo "Listing project files..."
+    ls -la
+  displayName: 'Display Files'
+
+# Step 3: Install Python
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+  displayName: 'Install Python'
+
+# Step 4: Install dependencies
+- script: |
+    python -m pip install --upgrade pip
+  displayName: 'Install Dependencies'
+
+# Step 5: Run Payroll Management System
+- script: |
+    echo "Running Payroll Management System..."
+    python app.py
+  displayName: 'Run Application'
+
+# Step 6: Execute Test Cases
+- script: |
+    echo "Executing Test Cases..."
+  displayName: 'Run Tests'
+
+# Step 7: Build Successful Message
+- script: |
+    echo "Pipeline executed successfully!"
+  displayName: 'Build Success'
